@@ -26,6 +26,8 @@ define composer::exec (
   $verbose           = false,
   $refreshonly       = false,
   $user              = undef,
+  # Using a big value to avoid composer timeouts breaking the build. 
+  $timeout           = 999999,
 ) {
   require composer
   require git
@@ -50,6 +52,7 @@ define composer::exec (
     command     => template('composer/exec.erb'),
     cwd         => $cwd,
     logoutput   => $logoutput,
-    refreshonly => $refreshonly
+    refreshonly => $refreshonly,
+    timeout     => $timeout
   }
 }
